@@ -17,14 +17,33 @@ body{
 .mt-20{
     margin-top: 20px;
 }
+.mt-40{
+    margin-top: 40px;
+}
 .gap-30{
     margin-bottom: 30px;
 }
 .gap-40{
     margin-bottom: 40px;
 }
-viewer-pdf-toolbar{
-    visibility: hidden;
+.reg-wrapper span.errort{
+    color: red;
+    margin-left: 30%;
+    margin-bottom: 20px;
+    
+}
+.reg-body span.error{
+    color: red;
+    margin-left: 170px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+.reg-body span.success{
+    color: #218838;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: -5px;
+    padding: 10px;
 }
 .border{
     width: 60px;
@@ -39,9 +58,6 @@ viewer-pdf-toolbar{
     top: 140px;
     left: 47%;
    
-}
-#toolbar, #annotations-bar{
-    visibility: hidden;
 }
 .main-content{
     width: 100%;
@@ -206,7 +222,7 @@ viewer-pdf-toolbar{
 .nav-pills li {
     background: 0;
 }
-
+  
 
 .content{
     width: 80%;
@@ -333,6 +349,9 @@ viewer-pdf-toolbar{
     color: orange;
 }
 /*dashboard-header*/
+.dashboard-content{
+    padding-bottom: 30px;
+}
 .dashboard-header .left{
     padding: 20px;
 
@@ -438,19 +457,40 @@ viewer-pdf-toolbar{
     margin: 0 auto;
     box-shadow: 0px 0px 3px;
     padding: 40px 25px;
-    background: #DDDDDD!important;
+    background: #ddd!important;
 }
+
 .reg-body .form-group{
     margin-bottom: 16px;
     
 }
 .reg-body label{
-    width: 145px;
+    width: 140px;
    margin-right: 20px;
    
 }
 .reg-body .custom{
     width: 350px;
+
+
+}
+
+.registration .reg-body input[type=text],
+.registration .reg-body input[type=password],
+.registration .reg-body textarea{
+    outline: 0!important;
+    border: 1px solid #D52B2A;
+}
+.form-inline label{
+    text-align: right;
+    display: block;
+    font-weight: bold;
+}
+.reg-body .submit{
+    margin-top: 25px;
+    margin-left: 200px;
+
+
 }
 .reg-body .form-group span{
     color: red;
@@ -461,51 +501,12 @@ viewer-pdf-toolbar{
     color: #fff;
     margin-left: 30px;
 }
-.form-inline label{
-    text-align: right;
-    display: block;
-    font-weight: bold;
-}
-.reg-body .submit{
-    margin-top: 25px;
-    margin-left: 200px;
-    
-}
-.reg-wrapper span.error{
-    color: red;
-    margin-left: 220px;
-    margin-bottom: 10px;
-    margin-top: -5px;
-}
-.reg-body span.success{
-    color: #218838;
-    margin-left: 170px;
-    margin-bottom: 10px;
-    margin-top: -5px;
-}
-.reg-wrapper span.error{
-    color: red;
-    margin-left: 220px;
-    margin-bottom: 10px;
-    margin-top: -5px;
-}
-.reg-body span.success{
-    color: #218838;
-    text-align: center;
-    margin-bottom: 10px;
-    margin-top: -5px;
-    padding: 10px;
-}
 .login{
     position: relative;
 }
 .login-body{
     
     width: 320px;
-    
-}
-.std-info table{
-    /*padding-right: 15px!important;*/
     
 }
 .login-body a{
@@ -520,10 +521,6 @@ viewer-pdf-toolbar{
     text-decoration: underline;
     text-decoration-color: #D52B2A;
 }
-.login-body input[type=text],
-.login-body input[type=password]{
-    border: 1px solid #D52B2A;
-}
 .login-body .submit{
     background: #D52B2A;
     border: none;
@@ -535,13 +532,6 @@ viewer-pdf-toolbar{
     background: #ddd;
     padding: 40px;
     box-shadow: 0px 0px 3px;
-
-}
-.change_link a{
-    text-decoration: none;
-    color: #17A2B8;
-    font-size: 16px;
-    margin-left: 10px;
 }
 .login-footer .change_link a{
     color: #D52B2A;
@@ -551,10 +541,7 @@ viewer-pdf-toolbar{
 }
 /*student info*/
 .std-info table tbody{
-    font-size: 13.5px;
-}
-.std-info table thead{
-    font-size: 15px;
+    font-size: 14px;
 }
 .bstore{
     width: 600px;
@@ -565,22 +552,12 @@ viewer-pdf-toolbar{
 }
 .dbooks table tbody{
     font-size: 14px;
-    vertical-align: middle;
-    
-}
-.dbooks table thead th{
-   
-    vertical-align: middle;
-    
-}
-.dbooks table tbody td{
-   
-    vertical-align: middle;
-    
+    background: #2C3034;
+    color: #fff;
 }
 .dbooks table tbody img{
-    width: 80px;
-    height: 95px;
+    width: 100px;
+    height: 120px;
 }
 .dbooks table tbody a{
     text-decoration: none;
@@ -601,16 +578,15 @@ viewer-pdf-toolbar{
 }
 .pagination ul li a{
      color: #333;
-     border: 1px solid #333;
+     border: 1px solid #ffb607;
      margin-right: 8px;
 }
 .pagination ul li:hover a{
-    background: #073f5f;
+    background: #ffb607;
     color: #fff;
 }
 .profile-content{
     width: 100%;
-    margin-left: 30px;
 }
 .profile-content .photo{
     width: 250px;
@@ -632,24 +608,6 @@ viewer-pdf-toolbar{
 }
 .rbook-info a{
     text-decoration: none;
-    color: #fff;
-}
-.page-item a{
-    margin-right: 10px;
-    color: #000;
-
-}
-.page-item.active .page-link{
-    border: 0;
-    color: #fff;
-}
-
-.page-item a:hover{
-    background: #007BFF;
-    color: #fff;
-}
-.rbook-info a:hover{
-    background: #007BFF;
     color: #fff;
 }
 .nav-link.active{
@@ -675,12 +633,54 @@ viewer-pdf-toolbar{
     box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;
     border-right: 5px solid #1ABB9C;
 }
-.sidebar-menu li.active ul a{
-
-    box-shadow: none;
-    border-right: 0px solid #fff;
-    border: 0;
+tbody{
+    font-size: 14px;
 }
-.addUser{
-    margin-left: 100px;
+.control-books img{
+    width: 180px;
+    height: 220px;
+}
+.control-books .bimage{
+    margin-bottom: 30px;
+}
+.control-books h3{
+    font-size: 20px;
+}
+.details{
+    width: 100%;
+    padding-bottom: 20px;
+}
+.details .details-control{
+    width: 48%;
+    margin-right: 2%;
+    float: left;
+}
+.details .details-control:nth-child(2n+2){
+    margin-right: 0;
+}
+.pass-content{
+	width: 550px;
+	margin: 0 auto;
+    box-shadow: 0px 0px 3px;
+    padding: 40px 30px;
+	
+}
+.pass-content input[type=password]{
+    border: 1px solid #D52B2A;
+}
+.pass-content input[type=submit]{
+    background: #D52B2A;
+    color: white;
+}
+.issue-content{
+	width: 700px;
+	margin-left: 50px;
+}
+.issue-content .bdr{
+    outline: 0!important;
+    border: 1px solid red;
+}
+.issue-content input[type=submit]{
+	background: #D52B2A;
+    color: white;
 }

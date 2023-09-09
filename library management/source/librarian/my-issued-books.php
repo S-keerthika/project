@@ -1,16 +1,16 @@
 	<?php 
-		 session_start();
-        if (!isset($_SESSION["teacher"])) {
+     session_start();
+    if (!isset($_SESSION["teacher"])) {
         ?>
             <script type="text/javascript">
                 window.location="login.php";
             </script>
         <?php
     }
-    $page = 'home';
+    $page = 'ibook';
     include 'inc/header.php';
     include 'inc/connection.php';
-	 ?>
+ ?>
 	<!--dashboard area-->
 	<div class="dashboard-content">
 		<div class="dashboard-header">
@@ -24,12 +24,12 @@
 					<div class="col-md-6">
 						<div class="right text-right">
 							<a href="dashboard.php"><i class="fas fa-home"></i>home</a>
-							<span class="disabled">dashboard</span>
+							<span class="disabled">my issued books</span>
 						</div>
 					</div>
 				</div>
 				<div class="st-issuedBook">
-                    <table id="dtBasicExample" class="table table-dark table-striped text-center">
+					<table id="dtBasicExample" class="table table-dark table-striped text-center">
                         <thead>
                            <tr>
                             <th>Id No</th>
@@ -61,9 +61,9 @@
 	<?php 
 		include 'inc/footer.php';
 	 ?>
-     <script>
+	 <script>
         $(document).ready(function () {
         $('#dtBasicExample').DataTable();
         $('.dataTables_length').addClass('bs-select');
         });
-      </script>
+  </script>

@@ -1,6 +1,7 @@
 <?php 
-	include 'inc/connection.php';
-?>
+    include 'inc/connection.php';
+    include 'inc/function.php';
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,28 +35,64 @@
             </div>
             <div class="gap-40"></div>
             <div class="reg-body">
-                <h4 style="text-align: center; margin-bottom: 25px;">Librarian registration form</h4>
+                 
+                <h4 style="text-align: center; margin-bottom: 25px;">Teacher registration form</h4>
                 <form action="" class="form-inline" method="post">
+					<?php if(isset($s_msg)):?>
+						<span class="success"> <?php echo $s_msg; ?></span>
+					<?php endif ?>
+					<?php if(isset($error_m)):?> 
+						<span class="errort"> <?php echo $error_m; ?></span>
+					<?php endif ?>
                     <div class="form-group">
                         <label for="name" class="text-right">Name <span>*</span></label>
-                        <input type="text" class="form-control custom" placeholder="Your Name" name="name" required=""/>
+                        <input type="text" class="form-control custom" placeholder="Full Name" name="name"/>
                     </div>
                     <div class="form-group">
                          <label for="username">Username <span>*</span></label>
-                        <input type="text" class="form-control custom" placeholder="Username" name="username" required=""/>
+                        <input type="text" class="form-control custom" placeholder="Username" name="username"/>
                     </div>
+                    <?php if(isset($error_ua)):?> 
+                     <span class="error"> <?php echo $error_ua; ?></span>
+                      <?php endif ?>
+                      <?php if(isset($error_uname)):?> 
+                     <span class="error"> <?php echo $error_uname; ?></span>
+                      <?php endif ?>
                     <div class="form-group">
                          <label for="password">Password <span>*</span></label>
-                        <input type="password" class="form-control custom" placeholder="Password" name="password" required=""/>
+                        <input type="password" class="form-control custom" placeholder="Password" name="password"/>
+                    </div>
+					<?php if(isset($error_pw)):?> 
+                     <span class="error"> <?php echo $error_pw; ?></span>
+                      <?php endif ?>
+                    <div class="form-group">
+                         <label for="lecturer">Lecturer <span>*</span></label>
+                        <input type="text" class="form-control custom" placeholder="lecturer / dept" name="lecturer"/>
                     </div>
                     <div class="form-group">
                          <label for="email">Email <span>*</span></label>
-                        <input type="text" class="form-control custom" placeholder="Email" name="email" required=""/>
+                        <input type="text" class="form-control custom" placeholder="Gmail" name="email"/>
                     </div>
+                     <?php if(isset($e_msg)):?> 
+                    <span class="error"><?php echo $e_msg; ?> </span>
+                    <?php endif ?>
+                    <?php if(isset($error_email)):?> 
+                    <span class="error"><?php echo $error_email; ?> </span>
+                    <?php endif ?>
                     <div class="form-group">
                          <label for="phone">Phone No <span>*</span></label>
-                        <input type="text" class="form-control custom" placeholder="Phone No" name="phone" required=""/>
+                        <input type="text" class="form-control custom" placeholder="Phone No" name="phone"/>
                     </div>
+                     <?php if(isset($error_phone)):?> 
+                    <span class="error"><?php echo $error_phone; ?></span>
+                      <?php endif ?>
+                    <div class="form-group">
+                         <label for="session">Id No <span>*</span></label>
+                        <input type="text" class="form-control custom" placeholder="Id No" name="idno"/>
+                    </div>
+                     <?php if(isset($error_id)):?> 
+                    <span class="error"><?php echo $error_id; ?></span>
+                      <?php endif ?>
                     <div class="form-group">
                          <label for="address">Address <span>*</span></label>
                         <textarea name="address" id="address"  class="form-control custom" placeholder="Your address"></textarea>
@@ -65,17 +102,6 @@
                     </div>
                 </form>
             </div>
-			<?php 
-                if (isset($_POST["submit"])) {
-                    $photo = "upload/avatar.jpg";
-                    mysqli_query($link, "insert into lib_registration values('','$_POST[name]','$_POST[username]','$_POST[password]','$_POST[email]','$_POST[phone]','$_POST[address]','$photo','')");
-                    ?>
-                        <div class="alert alert-success col-lg-6">
-                            Registration successfully, You will get email when your account is approved
-                        </div>
-                    <?php
-                }
-             ?>
         </div>
     </div>
     <div class="footer text-center">

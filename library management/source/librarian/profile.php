@@ -1,13 +1,12 @@
 <?php 
-    session_start();
-    if (!isset($_SESSION["username"])) {
+     session_start();
+    if (!isset($_SESSION["teacher"])) {
         ?>
             <script type="text/javascript">
                 window.location="login.php";
             </script>
         <?php
     }
-    $page = 'profile';
     include 'inc/header.php';
     include 'inc/connection.php';
  ?>
@@ -18,7 +17,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="left">
-							<p><span>dashboard</span>Control panel</p>
+							<p><span>dashboard</span>User panel</p>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -33,7 +32,7 @@
 						<div class="col-md-3">
 							<div class="photo">
 								<?php
-                                    $res = mysqli_query($link, "select * from lib_registration where username='".$_SESSION['username']."'");
+                                    $res = mysqli_query($link, "select * from t_registration where username='".$_SESSION['teacher']."'");
                                     while ($row = mysqli_fetch_array($res)){
                                         ?><img src="<?php echo $row["photo"]; ?> " height="" width="" alt="something wrong"></a> <?php
                                     }
@@ -54,7 +53,7 @@
                                     $newfilename = round(microtime(true)) . '.' . end($temp);
                                     $imagepath="upload/".$newfilename;
                                     move_uploaded_file($_FILES["image"]["tmp_name"],$imagepath);
-                                    mysqli_query($link, "update lib_registration set photo='".$imagepath."' where username='".$_SESSION['username']."'");
+                                    mysqli_query($link, "update t_registration set photo='".$imagepath."' where username='".$_SESSION['teacher']."'");
                                     
                                     ?>
                                         <script type="text/javascript">
@@ -64,54 +63,69 @@
                                 }
                             ?>
 						</div>
-						<div class="col-md-7 ml-30">
+						<div class="col-md-9">
 							<div class="details">
-								<?php
-                                   $res5 = mysqli_query($link, "select * from lib_registration where username='$_SESSION[username]' ");
-                                   while($row5 = mysqli_fetch_array($res5)){
-                                       $name      = $row5['name'];
-                                       $username  = $row5['username'];
-                                       $email     = $row5['email'];
-                                       $phone     = $row5['phone'];
-                                       $address     = $row5['address'];
-                                   }
-                                   ?>
+                                 <?php
+                                       $res5 = mysqli_query($link, "select * from t_registration where username='$_SESSION[teacher]' ");
+                                       while($row5 = mysqli_fetch_array($res5)){
+                                           $idno      = $row5['idno'];
+										   $username  = $row5['username'];
+                                           $name      = $row5['name'];
+                                           $lecturer  = $row5['lecturer'];
+                                           $email     = $row5['email'];
+                                           $phone     = $row5['phone']; 
+                                           $address   = $row5['address'];
+                                           $utype     = $row5['utype'];
+                                       }
+                                    ?>
                                 <form method="post">
-                                    <div class="form-group">
+                                    <div class="form-group details-control">
+                                        <label for="idno" class="text-right">Id No:</label>
+                                        <input type="text" class="form-control custom"  name="idno" value="<?php echo $idno; ?>" disabled />
+                                    </div>
+                                    <div class="form-group details-control">
+                                         <label for="tusername">Username:</label>
+                                        <input type="text" class="form-control custom" placeholder="Username" name="tusername" value="<?php echo $username; ?>" disabled />
+                                    </div>
+                                    <div class="form-group details-control">
                                         <label for="name" class="text-right">Name:</label>
                                         <input type="text" class="form-control custom"  name="name" value="<?php echo $name; ?>" />
                                     </div>
-                                    <div class="form-group">
-                                         <label for="username">Username:</label>
-                                        <input type="text" class="form-control custom" placeholder="Username" name="username" value="<?php echo $username; ?>" disabled />
+                                    <div class="form-group details-control">
+                                        <label for="lecturer" class="text-right">Lecturer:</label>
+                                        <input type="text" class="form-control custom"  name="lecturer" value="<?php echo $lecturer; ?>" />
                                     </div>
-                                    <div class="form-group">
+
+                                    <div class="form-group details-control">
                                          <label for="email">Email:</label>
                                         <input type="text" class="form-control custom"  name="email" value="<?php echo $email; ?>" disabled />
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group details-control">
                                          <label for="phone">Phone No:</label>
                                         <input type="text" class="form-control custom"  name="phone" value="<?php echo $phone; ?>" />
-                                    </div> 
-                                    <div class="form-group">
+                                    </div>			                    
+                                    <div class="form-group details-control">
                                         <label for="address">Address:</label>
                                          <input type="text" class="form-control custom"  name="address" value="<?php echo $address; ?>" />
+                                    </div>
+                                    <div class="form-group details-control">
+                                        <label for="utype">User Type:</label>
+                                         <input type="text" class="form-control custom"  name="utype" value="<?php echo $utype; ?>"  disabled="" />
                                     </div>
                                     <div class="text-right mt-20">
                                         <input type="submit" value="Save" class="btn btn-info" name="update">
                                     </div>
                                 <?php
-
                                 ?>
                                 </form>
 			                </div> 
                             <?php
                                if (isset($_POST["update"])){
-                                   mysqli_query($link, "update lib_registration set 
+                                   mysqli_query($link, "update t_registration set 
                                    name='$_POST[name]',
                                    phone='$_POST[phone]',
-                                   address='$_POST[address]' 
-                                   where username='$_SESSION[username]'");
+                                   address='$_POST[address]'
+                                   where username='$_SESSION[teacher]'");
                                     ?>
                                         <script type="text/javascript">
                                             window.location="profile.php";

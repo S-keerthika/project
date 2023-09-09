@@ -32,13 +32,12 @@
 		<div class="wrapper">
 			<div class="reg-header text-center">
 				<h2>Library management system</h2>
-				<div class="gap-30"></div>
-                <div class="gap-30"></div>
+				<div class="gap-40"></div>
 			</div>
 			<div class="gap-30"></div>
 			<div class="login-content">
 				<div class="login-body">
-                    <h4>Librarian Login Form</h4>
+                    <h4>User Login Form</h4>
 					<form action="" method="post">
 						<div class="mb-20">
 							<input type="text" name="username" class="form-control" placeholder="Username" required=""/>
@@ -47,15 +46,21 @@
 							<input type="password" name="password" class="form-control" placeholder="Password" required=""/>
 						</div>
 						<div class="mb-20">
-							<input class="btn btn-info submit" type="submit" name="login" value="Login">
-                            
+							<input class="btn btn-info submit" type="submit" name="login" value="Login"><a class="reset_pass" href="lost-password.php">Lost your password?</a>
 						</div>
 					</form>
+				</div>
+				<div class="login-footer text-center">
+					<div class="separator">
+		                <p class="change_link">New to site?
+		                    <a href="registration.php" class="text-right"> Create Account </a>
+		                </p>
+	                </div>
 				</div>
                  <?php 
                     if (isset($_POST["login"])) {
                         $count=0;
-                        $res= mysqli_query($link, "select * from lib_registration where username='$_POST[username]' && password= '$_POST[password]' ");
+                        $res= mysqli_query($link, "select * from t_registration where username='$_POST[username]' && password= '$_POST[password]' && status='yes' && verified='yes'");
                         $count = mysqli_num_rows($res);
                         if ($count==0) {
                             ?>
@@ -65,10 +70,10 @@
                             <?php
                         }
                         else{
-                            $_SESSION["username"] = $_POST["username"];
+                            $_SESSION["teacher"] = $_POST["username"];
                             ?>
                             <script type="text/javascript">
-                                window.location="dashboard.php";
+                                window.location="my-issued-books.php";
                             </script>
                             <?php  
                         }
@@ -77,10 +82,6 @@
 			</div>
 		</div>
 	</div>
-    <div class="footer text-center">
-        <p>&copy; All rights reserved utter pompously</p>
-    </div>
-
 	<script src="inc/js/jquery-2.2.4.min.js"></script>
 	<script src="inc/js/bootstrap.min.js"></script>
 	<script src="inc/js/custom.js"></script>
