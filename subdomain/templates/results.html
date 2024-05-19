@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reconnaissance Results</title>
+</head>
+<body>
+    <!-- Page Header -->
+    <h1>Reconnaissance Results for {{ domain }}</h1>
+
+    <!-- Email Addresses Section -->
+    <h2>Email Addresses:</h2>
+    <ul>
+        {% for email_address in email_addresses %}
+        <li>{{ email_address }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- DNS Record Types Section -->
+    <h2>DNS Record Types:</h2>
+    <ul>
+        {% for record_type in record_types %}
+        <li>{{ record_type }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Subdomain Results Section -->
+    <h2>Subdomain Results:</h2>
+    <ul>
+        {% for result in subdomain_results %}
+        <li>{{ result }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
