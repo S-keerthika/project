@@ -1,0 +1,5 @@
+HEAPDUMP ANALYZER
+
+
+place the file in python scripts ---> C:\Users\name\AppData\Local\Programs\Python\Python312\heapdump
+open visual studio and download and run using py app.py
