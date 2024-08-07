@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heap Dump Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        #resultContainer {
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            max-height: 400px;
+            overflow-y: auto; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #uploadForm {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #uploadForm input, #uploadForm select, #uploadForm button {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #uploadForm button {
+            background-color: #0080FE;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #uploadForm button:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0080FE;
+        }
+
+        #progressBar {
+            width: 100%;
+            background-color: #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        #progressBar div {
+            height: 20px;
+            width: 0;
+            background-color: #0080FE;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
+
+        #status {
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heap Dump Analyzer</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" />
+        <select name="dataType" id="dataType">
+            <option value="password">Password</option>
+            <option value="client_id">Client ID</option>
+            <option value="api_password">API Credentials</option>
+            <option value="bearer_token">Bearer Token</option>
+            <option value="aws_credentials">AWS Credentials</option>
+            <!-- Add more options for other data types as needed -->
+        </select>
+        <button type="submit">Upload and Analyze</button>
+    </form>
+    <div id="progressBar"><div></div></div>
+    <div id="status"></div>
+    <div id="resultContainer"></div>
+    <script>
+        document.getElementById('uploadForm').onsubmit = (event) => {
+            event.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            const dataType = document.getElementById('dataType').value;
+            const file = fileInput.files[0];
+            const progressBar = document.getElementById('progressBar').firstElementChild;
+            const status = document.getElementById('status');
+            const startTime = Date.now();
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('dataType', dataType);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/analyze', true);
+
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = Math.round((event.loaded / event.total) * 100);
+                    progressBar.style.width = percentComplete + '%';
+                    progressBar.textContent = percentComplete + '%';
+                    status.textContent = `Uploading: ${percentComplete}%`;
+                }
+            };
+
+            xhr.onloadstart = () => {
+                status.textContent = 'Uploading...';
+            };
+
+            xhr.onload = () => {
+                const uploadTime = (Date.now() - startTime) / 1000;
+                if (xhr.status === 200) {
+                    const result = JSON.parse(xhr.responseText);
+                    progressBar.style.width = '100%';
+                    progressBar.textContent = '100%';
+                    status.textContent = 'Analyzing...';
+                    
+                    
+                    setTimeout(() => {
+                        document.getElementById('resultContainer').textContent = result.message || JSON.stringify(result, null, 2);
+                        const analyzeTime = (Date.now() - startTime) / 1000 - uploadTime;
+                        status.textContent = `Upload and analysis completed in ${((Date.now() - startTime) / 1000).toFixed(2)}s (upload: ${uploadTime.toFixed(2)}s, analyze: ${analyzeTime.toFixed(2)}s)`;
+                    }, 2000); 
+                } else {
+                    document.getElementById('resultContainer').textContent = 'Error: ' + xhr.statusText;
+                    status.textContent = 'Error during upload/analysis.';
+                }
+            };
+
+            xhr.send(formData);
+        };
+    </script>
+</body>
+</html>
